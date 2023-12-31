@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const userSchema = new mongoose.Schema({
+const Schema = mongoose.Schema
+const userSchema = new Schema({
   firstname: {
     type: String,
     required: true,
@@ -27,6 +28,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role:{
+    type: String,
+    default:"user"
+  },
+  cart:{
+    type:Array,
+    default:[]
+  },
+  address:[{type:Schema.Types.ObjectId, ref:"Address" }],
+  wishlist:[{type:Schema.Types.ObjectId, ref:"Product"}]
+},{
+  timestamps:true
 });
 
 userSchema.pre("save", async function(next) {
@@ -34,7 +47,7 @@ userSchema.pre("save", async function(next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
-userSchema.methods.isPasswordMatch = async function(enteredPassword){
+userSchema.methods.isPasswordMatched = async function(enteredPassword){
   return await bcrypt.compare(enteredPassword, this.password);
 };
 //Export the model
