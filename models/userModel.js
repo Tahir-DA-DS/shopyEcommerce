@@ -32,6 +32,8 @@ const userSchema = new Schema({
     type: String,
     default:"user"
   },
+  isblocked:{type:Boolean, 
+    default:false},
   cart:{
     type:Array,
     default:[]
