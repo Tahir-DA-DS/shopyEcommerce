@@ -39,7 +39,11 @@ const userSchema = new Schema({
     default:[]
   },
   address:[{type:Schema.Types.ObjectId, ref:"Address" }],
-  wishlist:[{type:Schema.Types.ObjectId, ref:"Product"}]
+  wishlist:[{type:Schema.Types.ObjectId, ref:"Product"}],
+  refreshToken:{
+    type:String
+  }
+
 },{
   timestamps:true
 });
