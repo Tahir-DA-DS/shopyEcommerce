@@ -5,10 +5,12 @@ const app = express();
 require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 const cookieParser = require("cookie-parser")
+const morgan = require('morgan')
 const authRouter = require("./routes/authRouter");
 const {notFound, errorHandler} = require('./middlewares/errorHandler')
 const productRouter = require('./routes/productRouter')
 
+app.use(morgan("dev"))
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(cookieParser())
