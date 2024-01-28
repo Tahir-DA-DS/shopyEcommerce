@@ -3,15 +3,14 @@ const asynchandler = require("express-async-handler")
 require('dotenv').config()
 
 const sendEmail = asynchandler(async(data, req, res)=>{
-
     const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
+        host: "smtp.gmail.com",                                                                
         port: 465,
         secure: true,
         auth: {
           // TODO: replace `user` and `pass` values from <https://forwardemail.net>
           user: process.env.MAIL_ID,
-          pass: process.env.MP,
+          pass: "knut hlnw uleb cakn",
         },
       });
       
@@ -23,8 +22,10 @@ const sendEmail = asynchandler(async(data, req, res)=>{
           to: data.to, // list of receivers
           subject: data.subject, // Subject line
           text: data.text, // plain text body
-          html: data.html, // html body
+          html: data.htm, // html body
         });
+
+       
       
         console.log("Message sent: %s", info.messageId);
         // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
@@ -35,6 +36,9 @@ const sendEmail = asynchandler(async(data, req, res)=>{
         //       <https://github.com/forwardemail/preview-email>
         //
       }
+
+      await main()
+      console.log("Email sent successfully" )
 
 })
 
