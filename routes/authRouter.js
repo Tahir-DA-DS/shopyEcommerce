@@ -11,11 +11,13 @@ const {
   unblockUSer,
   handleRefreshToken,
   logout,
-  updatePassword
+  updatePassword,
+  forgotPasswordToken
 } = require("../controllers/userCtrl");
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware");
 
 router.post("/register", creatUser);
+router.post("/forgot-password", forgotPasswordToken)
 router.post("/login", loginCtrl);
 router.put("/password", authMiddleware, updatePassword)
 router.get("/refresh", handleRefreshToken);

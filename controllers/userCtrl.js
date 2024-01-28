@@ -4,6 +4,7 @@ const { generateToken } = require("../config/jwtToken");
 const validateMongoDbId = require("../utils/validateMongodbid");
 const { generateRefreshToken } = require("../config/refreshToken");
 const jwt = require("jsonwebtoken");
+const sendEmail = require("./emailCtrl");
 
 const creatUser = asyncHandler(async (req, res) => {
   const email = req.body.email;
@@ -206,6 +207,29 @@ const updatePassword = asyncHandler(async (req, res)=>{
   }
 })
 
+const forgotPasswordToken = asyncHandler(async(req, res)=>{
+  const {email} = req.body
+
+  const user = await User.findOne({email})
+  if(!user) throw new Error('user with this enail not found')
+  try {
+    const token = await user.createPasswordResetToken()
+    await user.save()
+    const resetUrl = `Hi, Please follow this link to reset your password. This link is valid till 10 min from now. <a href='http://localhost:5000/user/reset-password/${token}'>click here<a/>`
+    const data = {
+      to:email,
+      text:"Hey User",
+      subject:"Forgot Password Link",
+      html:resetUrl
+    }
+    sendEmail(data)
+    res.json(token)
+  } catch (error) {
+    throw new Error(error)
+  }
+
+})
+
 module.exports = {
   creatUser,
   loginCtrl,
@@ -217,5 +241,6 @@ module.exports = {
   unblockUSer,
   handleRefreshToken,
   logout,
-  updatePassword
+  updatePassword,
+  forgotPasswordToken
 };

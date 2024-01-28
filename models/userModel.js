@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
+const crypto = require('crypto')
 const userSchema = new Schema(
   {
     firstname: {
@@ -70,7 +71,7 @@ userSchema.methods.createPasswordResetToken = async function () {
     .createHash("sha256")
     .update(resettoken)
     .digest("hex");
-    this.passwordResestExpires = Date.now() * 30 * 60 * 100 // 10 minutes
+    this.passwordResestExpires = Date.now() + 30 * 60 * 100 // 10 minutes
     return resettoken
 };
 //Export the model
