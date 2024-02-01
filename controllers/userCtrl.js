@@ -235,7 +235,8 @@ const resetPassword = asyncHandler(async(req, res)=>{
   const {password} = req.body
   const {token} = req.params
   const hashedToken = crypto.createHash('sha256').update(token).digest("hex")
-  const user = await User.findOne({passwordResetToken:hashedToken, passwordResetExpires:{$gt:Date.now()}})
+  const user = await User.findOne({passwordResestToken:hashedToken, passwordResestExpires:{$gt:Date.now()}})
+  console.log(user);
   if(!user) throw new Error('Token Expired, Try Again Later')
   user.password = password
   user.passwordResestToken = undefined,

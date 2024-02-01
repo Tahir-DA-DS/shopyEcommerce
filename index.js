@@ -9,6 +9,7 @@ const morgan = require('morgan')
 const authRouter = require("./routes/authRouter");
 const {notFound, errorHandler} = require('./middlewares/errorHandler')
 const productRouter = require('./routes/productRouter')
+const blogRouter = require('./routes/blogRoutes')
 
 app.use(morgan("dev"))
 app.use(bodyparser.json());
@@ -18,7 +19,7 @@ dbconnect();
 
 app.use("/api/v1/user", authRouter);
 app.use("/api/v1/product", productRouter)
-
+app.use("/api/v1/blog", blogRouter)
 
 app.use(notFound)
 app.use(errorHandler)
