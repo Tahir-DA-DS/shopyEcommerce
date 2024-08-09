@@ -23,8 +23,7 @@ const userSchema = new Schema(
     },
     mobile: {
       type: String,
-      required: true,
-      unique: true,
+      required: true
     },
     password: {
       type: String,

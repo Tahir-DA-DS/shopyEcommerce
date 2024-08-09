@@ -212,7 +212,7 @@ const forgotPasswordToken = asyncHandler(async(req, res)=>{
   const {email} = req.body
 
   const user = await User.findOne({email})
-  if(!user) throw new Error('user with this enail not found')
+  if(!user) throw new Error('user with this email not found')
   try {
     const token = await user.createPasswordResetToken()
     await user.save()
