@@ -10,6 +10,7 @@ const authRouter = require("./routes/authRouter");
 const {notFound, errorHandler} = require('./middlewares/errorHandler')
 const productRouter = require('./routes/productRouter')
 const blogRouter = require('./routes/blogRoutes')
+const categoryRouter = require('./routes/productcategoryRouter')
 
 app.use(morgan("dev"))
 app.use(bodyparser.json());
@@ -20,6 +21,7 @@ dbconnect();
 app.use("/api/v1/user", authRouter);
 app.use("/api/v1/product", productRouter)
 app.use("/api/v1/blog", blogRouter)
+app.use("/api/v1/category", categoryRouter)
 
 app.use(notFound)
 app.use(errorHandler)
