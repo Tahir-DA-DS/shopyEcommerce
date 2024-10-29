@@ -13,6 +13,8 @@ const blogRouter = require('./routes/blogRoutes')
 const categoryRouter = require('./routes/productcategoryRouter')
 const blogcategoryRouter = require('./routes/blogCatRouter')
 const brandRouter = require('./routes/brandRouter')
+const couponRouter = require('./routes/couponRoute')
+
 
 
 app.use(morgan("dev"))
@@ -27,6 +29,8 @@ app.use("/api/v1/blog", blogRouter)
 app.use("/api/v1/category", categoryRouter)
 app.use("/api/v1/blogcat", blogcategoryRouter)
 app.use("/api/v1/brand", brandRouter)
+app.use("/api/v1/coupon", couponRouter)
+
 
 
 app.use(notFound)
