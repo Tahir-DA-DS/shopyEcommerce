@@ -13,5 +13,16 @@ const createCoupon = asyncHandler(async(req, res)=>{
 
 })
 
+const getAllCoupon = asyncHandler(async(req, res)=>{
 
-module.exports = {createCoupon}
+    try {
+        const coupons = await Coupon.find()
+        res.json(coupons)
+    } catch (error) {
+        throw new(Error)
+    }
+
+})
+
+
+module.exports = {createCoupon, getAllCoupon}
