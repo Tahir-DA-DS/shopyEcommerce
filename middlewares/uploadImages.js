@@ -1,23 +1,26 @@
 const multer = require("multer");
 const path = require("path");
+const sharp = require("sharp")
 
-const multerStorage = {
+const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
+    // Set the upload destination
     cb(null, path.join(__dirname, "../public/images"));
   },
-  fulename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math, random() * 1e9);
-    cb(null, filename, fieldname + "-" + uniqueSuffix + ".jpeg");
+  filename: function (req, file, cb) {
+    // Generate a unique filename
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpeg");
   },
-};
+})
 
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
-    cb(null, true);
+    cb(null, true); // Accept the file
   } else {
     cb(
       {
-        message: "unsupported file format",
+        message: "Unsupported file format", // Reject the file
       },
       false
     );
