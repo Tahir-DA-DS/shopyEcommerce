@@ -326,10 +326,32 @@ const userCart =  asyncHandler(async(req, res)=>{
       products.push(object)
 
     }
+    let cartTotal = 0;
+    for(let i=0; i<products.length; i++){
+      cartTotal = cartTotal + products[i].price * products[i].count;
+    }
+    let newCart = await new Cart({
+      products,
+      cartTotal,
+      orderby:user?._id
+    }).save()
 
+    res.json(newCart)
   } catch(error){
     throw new Error(error)
   } 
+})
+
+const getUserCart = asyncHandler(async (req, res)=>{
+  const {_id} = req.user
+  validateMongoDbId(_id)
+  try {
+    const cart = await Cart.findOne({orderby:_id})
+    res.json(cart)
+  } catch (error) {
+    throw new Error(error)
+    
+  }
 })
 module.exports = {
   creatUser,
@@ -348,5 +370,6 @@ module.exports = {
   loginAdmin,
   getWishList,
   saveAddress,
-  userCart
+  userCart,
+  getUserCart
 };

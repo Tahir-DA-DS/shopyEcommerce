@@ -13,7 +13,7 @@ const {
   logout,
   updatePassword,
   forgotPasswordToken,
-  resetPassword, loginAdmin, getWishList,saveAddress, userCart
+  resetPassword, loginAdmin, getWishList,saveAddress, userCart, getUserCart
 } = require("../controllers/userCtrl");
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware");
 
@@ -29,6 +29,8 @@ router.get("/logout", logout);
 router.get("/all-users", getAllusers);
 router.get("/:id", authMiddleware, isAdmin, getaUser);
 router.get("/wishlist", authMiddleware, getWishList);
+router.get("/cart", authMiddleware, getUserCart);
+
 router.delete("/:id", delaUser);
 router.put("/edit-user", authMiddleware, updateaUser);
 router.put("/save-address", authMiddleware, saveAddress);
