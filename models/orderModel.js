@@ -6,7 +6,7 @@ var orderSchema = new mongoose.Schema(
       {
         product: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: Product,
+          ref: "Product",
         },
 
         count: Number,
@@ -28,7 +28,7 @@ var orderSchema = new mongoose.Schema(
     },
     orderby: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: User,
+      ref: "User",
     },
   },
   {
